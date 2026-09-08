@@ -1,0 +1,436 @@
+{
+  "name": "TutorBot - Puntos por Cumplimiento",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "tiene-chat-id",
+              "leftValue": "={{ $json.chat_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "gano-regalo-hoy",
+              "leftValue": "={{ $json.regalos_ganados_hoy }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "looseTypeValidation": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        896,
+        256
+      ],
+      "id": "353ecf7c-3505-43c0-b112-5f301ea572bf",
+      "name": "¿Ganó un regalo y tiene chat_id?"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -224,
+        160
+      ],
+      "id": "50dad53c-3400-4155-8cb8-cc5710fbc499",
+      "name": "Calcular Puntos (Trigger 7am)1"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1_lNGnpaEm3qZPbpB4OrAfv9rkzhHqch_29rEQqcmHdo",
+          "mode": "list",
+          "cachedResultName": "TUTORES",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_lNGnpaEm3qZPbpB4OrAfv9rkzhHqch_29rEQqcmHdo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 8703423,
+          "mode": "list",
+          "cachedResultName": "ESTUDIANTES",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_lNGnpaEm3qZPbpB4OrAfv9rkzhHqch_29rEQqcmHdo/edit#gid=8703423"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        0
+      ],
+      "id": "278719fd-6b5a-4393-9871-9f08901fb2a1",
+      "name": "Leer Estudiantes1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "MOiEXqTzIt1mpR90",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1_lNGnpaEm3qZPbpB4OrAfv9rkzhHqch_29rEQqcmHdo",
+          "mode": "list",
+          "cachedResultName": "TUTORES",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_lNGnpaEm3qZPbpB4OrAfv9rkzhHqch_29rEQqcmHdo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1242827043,
+          "mode": "list",
+          "cachedResultName": "TUTORIAS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_lNGnpaEm3qZPbpB4OrAfv9rkzhHqch_29rEQqcmHdo/edit#gid=1242827043"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        160
+      ],
+      "id": "03bdf68f-3d37-4491-a6b9-792d3a10771e",
+      "name": "Leer Tutorias1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "MOiEXqTzIt1mpR90",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1_lNGnpaEm3qZPbpB4OrAfv9rkzhHqch_29rEQqcmHdo",
+          "mode": "list",
+          "cachedResultName": "TUTORES",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_lNGnpaEm3qZPbpB4OrAfv9rkzhHqch_29rEQqcmHdo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2035762010,
+          "mode": "list",
+          "cachedResultName": "SESSIONS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_lNGnpaEm3qZPbpB4OrAfv9rkzhHqch_29rEQqcmHdo/edit#gid=2035762010"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        320
+      ],
+      "id": "8367d8e5-7ccb-48c1-9ced-b3ac4a99f5af",
+      "name": "Leer Sessions1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "MOiEXqTzIt1mpR90",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        80
+      ],
+      "id": "994b844a-5d0f-401a-a8f0-b0cc47bda235",
+      "name": "Juntar Estudiantes y Tutorias1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        448,
+        160
+      ],
+      "id": "2f626ef3-0391-44db-979f-e17477efada9",
+      "name": "Juntar Todo con Sessions1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all().map(i => i.json);\n\n// Distinguir cada tipo de fila por sus columnas propias:\n// ESTUDIANTES: ID_ESTUDIANTE + NOMBRE + PUNTOS + REGALOS (sin 'materia' ni 'telegram_user')\n// TUTORIAS: id_estudiante + materia + estado (sin 'ID_ESTUDIANTE' en mayusculas)\n// SESSIONS: telegram_user + documento_identidad\nconst filasEstudiantes = items.filter(r => r.ID_ESTUDIANTE !== undefined);\nconst filasTutorias = items.filter(r => r.materia !== undefined);\nconst filasSessions = items.filter(r => r.telegram_user !== undefined);\n\nconst PUNTOS_POR_TUTORIA = 10;\nconst PUNTOS_POR_REGALO = 100;\n\n// 1. Contar tutorÃas Finalizadas por estudiante (recalculo completo, no acumulativo).\nconst conteoFinalizadas = {};\nfilasTutorias.forEach(t => {\n  if ((t.estado || '').toLowerCase() !== 'finalizada') return;\n  const id = String(t.id_estudiante || '').trim();\n  if (!id) return;\n  conteoFinalizadas[id] = (conteoFinalizadas[id] || 0) + 1;\n});\n\n// 2. Mapa de chat_id por documento (desde SESSIONS).\nconst chatIdPorDocumento = {};\nfilasSessions.forEach(s => {\n  const doc = String(s.documento_identidad || '').trim();\n  if (doc) chatIdPorDocumento[doc] = s.telegram_user;\n});\n\n// 3. Recalcular puntos/regalos de cada estudiante y detectar cambios.\nconst cambios = [];\nfilasEstudiantes.forEach(e => {\n  const id = String(e.ID_ESTUDIANTE || '').trim();\n  const finalizadas = conteoFinalizadas[id] || 0;\n  const puntosNuevos = finalizadas * PUNTOS_POR_TUTORIA;\n  const regalosNuevos = Math.floor(puntosNuevos / PUNTOS_POR_REGALO);\n\n  const puntosAnteriores = Number(e.PUNTOS) || 0;\n  const regalosAnteriores = Number(e.REGALOS) || 0;\n\n  if (puntosNuevos === puntosAnteriores && regalosNuevos === regalosAnteriores) {\n    return; // sin cambios, no hace falta actualizar ni notificar\n  }\n\n  cambios.push({\n    id_estudiante: id,\n    nombre: e.NOMBRE,\n    puntos_anteriores: puntosAnteriores,\n    puntos_nuevos: puntosNuevos,\n    regalos_anteriores: regalosAnteriores,\n    regalos_nuevos: regalosNuevos,\n    regalos_ganados_hoy: Math.max(0, regalosNuevos - regalosAnteriores),\n    tutorias_finalizadas: finalizadas,\n    chat_id: chatIdPorDocumento[id] || null\n  });\n});\n\nreturn cambios.map(c => ({ json: c }));"
+      },
+      "id": "e9dfb8a1-27aa-4673-b8ff-523d46936dba",
+      "name": "Calcular Puntos y Regalos1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1_lNGnpaEm3qZPbpB4OrAfv9rkzhHqch_29rEQqcmHdo",
+          "mode": "list",
+          "cachedResultName": "TUTORES",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_lNGnpaEm3qZPbpB4OrAfv9rkzhHqch_29rEQqcmHdo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 8703423,
+          "mode": "list",
+          "cachedResultName": "ESTUDIANTES",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_lNGnpaEm3qZPbpB4OrAfv9rkzhHqch_29rEQqcmHdo/edit#gid=8703423"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID_ESTUDIANTE": "={{ $json.id_estudiante }}",
+            "PUNTOS": "={{ $json.puntos_nuevos }}",
+            "REGALOS": "={{ $json.regalos_nuevos }}"
+          },
+          "matchingColumns": [
+            "ID_ESTUDIANTE"
+          ],
+          "schema": [
+            {
+              "id": "ID_ESTUDIANTE",
+              "displayName": "ID_ESTUDIANTE",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "NOMBRE",
+              "displayName": "NOMBRE",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "PUNTOS",
+              "displayName": "PUNTOS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "REGALOS",
+              "displayName": "REGALOS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "1cd61d36-31a1-406f-b136-6d056b2a1354",
+      "name": "Actualizar Puntos del Estudiante1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        896,
+        80
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "MOiEXqTzIt1mpR90",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chat_id }}",
+        "text": "=={{ '🎉 ¡Felicidades, ' + $json.nombre + '! 🌟\\n\\nAlcanzaste ' + $json.puntos_nuevos + ' puntos por tus tutorías finalizadas y ganaste ' + $json.regalos_ganados_hoy + ' regalo(s) nuevo(s). 🎁\\n\\n🏆 Regalos acumulados: ' + $json.regalos_nuevos }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1136,
+        240
+      ],
+      "id": "5953d5c9-866a-4fb5-9d96-5b662bcbda68",
+      "name": "Notificar Puntos por Telegram1",
+      "webhookId": "75a586a9-a4bb-4225-823d-2d9c31480f63",
+      "credentials": {
+        "telegramApi": {
+          "id": "qInrVnofsycr0bKC",
+          "name": "Telegram Estudiantes"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "¿Ganó un regalo y tiene chat_id?": {
+      "main": [
+        [
+          {
+            "node": "Notificar Puntos por Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcular Puntos (Trigger 7am)1": {
+      "main": [
+        [
+          {
+            "node": "Leer Estudiantes1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Leer Tutorias1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Leer Sessions1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leer Estudiantes1": {
+      "main": [
+        [
+          {
+            "node": "Juntar Estudiantes y Tutorias1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leer Tutorias1": {
+      "main": [
+        [
+          {
+            "node": "Juntar Estudiantes y Tutorias1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Leer Sessions1": {
+      "main": [
+        [
+          {
+            "node": "Juntar Todo con Sessions1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Juntar Estudiantes y Tutorias1": {
+      "main": [
+        [
+          {
+            "node": "Juntar Todo con Sessions1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Juntar Todo con Sessions1": {
+      "main": [
+        [
+          {
+            "node": "Calcular Puntos y Regalos1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcular Puntos y Regalos1": {
+      "main": [
+        [
+          {
+            "node": "Actualizar Puntos del Estudiante1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "¿Ganó un regalo y tiene chat_id?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "89391eb3-459a-4e1a-9d1c-028a870be837",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "50dd0348197ca68e15caeeb9bc6cebbb39470de999f9873b2553379076361dd4"
+  },
+  "nodeGroups": [],
+  "id": "SrqGPcBXDQJg36xn",
+  "tags": []
+}
